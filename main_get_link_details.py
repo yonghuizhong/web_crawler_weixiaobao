@@ -9,7 +9,7 @@ index_links = [link['url'] for link in link_details.find()]
 x = set(db_links)
 y = set(index_links)
 rest_links = x.difference(y)
-print(len(rest_links))
+print(len(x), len(y), len(rest_links))
 
 if __name__ == '__main__':
     pool = Pool()
