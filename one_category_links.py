@@ -81,9 +81,9 @@ def get_details(url):
         'Connection': 'keep-alive'
     }
     try:
-        res = requests.get(url, headers=headers2, proxies=proxies, timeout=5)
+        res = requests.get(url, headers=headers2, timeout=5)
         soup = BeautifulSoup(res.text, 'html.parser')
-        post_date = soup.select('em#post-date')[0].text
+        post_date = soup.select('em#publish_time')[0].text
         contents = soup.select('div.rich_media_content p')
         original = soup.find(id='copyright_logo')
         print('\n')
@@ -102,15 +102,16 @@ def get_details(url):
             'original': original_tag,
             'contents': contents_str
         }
+        # print(data)
         link_details.insert_one(data)
     except Exception as e:
         print('error!')
+        print(res.status_code)
         print(e)
         print(url)
 
 
 # url = 'https://mp.weixin.qq.com/s?__biz=MjM5MjAxNDM4MA==&mid=2666189702&idx=3&sn=404739b2b044befd4d331395ef09490d&chksm=bdb2bac58ac533d3d7e9d7c4aaba3748b58f934000ccca3faefd15c1a9af5ad1f695cbc2d9a2&scene=27#wechat_redirect'
-# url = 'https://mp.weixin.qq.com/s?__biz=MjM5NzM4MDg1MA==&mid=2652156449&idx=1&sn=931835ea171e3208fe1306e38b0cec3d&chksm=bd3ac5bc8a4d4caa279133a7a46c2f0112455ad50b98eb0a0d9ff299db82bfc1bf0cc500b458&scene=27#wechat_redirect'
 # get_details(url)
 
 
